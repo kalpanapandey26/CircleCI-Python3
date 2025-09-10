@@ -1,81 +1,19 @@
-version : 2.1
+version: 2.1
 
 jobs:
-  build:          
+  build:
+    docker:
+      - image: cimg/python:3.9   # CircleCI official Python 3.9 image
     steps:
       - checkout
-      - run : python main.py
-  test:
-    docker:
-      steps:
-        - checkout
-        - run : python test.py
-  deploy:
-    steps:
-      - run : echo "Practical done"
+      - run:
+          name: Install dependencies
+          command: pip install -r requirements.txt
+      - run:
+          name: Run tests
+          command: pytest
 
 workflows:
-  build_and_test_deploy:
+  build_and_test:
     jobs:
       - build
-      - test:
-          requires:
-            - buil
-      - deploy:
-          requires:
-            - test
-          filters:
-            branches:
-              only: main
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-           
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
